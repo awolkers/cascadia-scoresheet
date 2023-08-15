@@ -5,7 +5,7 @@ const switchLocalePath = useSwitchLocalePath();
 
 <template>
   <div>
-    <h2>{{ $t('languageSelector.title') }}</h2>
+    <h3>{{ $t('languageSelector.title') }}</h3>
     <ul>
       <li v-for="locale in locales" :key="locale.code">
         <NuxtLink :to="switchLocalePath(locale.code)">{{ locale.name }}</NuxtLink>
