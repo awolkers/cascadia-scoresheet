@@ -1,7 +1,9 @@
 <template>
   <div>
-    <the-navigation />
-    <slot />
-    <LanguageSelector />
+    <PageHeader />
+    <main>
+      <slot />
+    </main>
+    <PageFooter />
   </div>
 </template>
