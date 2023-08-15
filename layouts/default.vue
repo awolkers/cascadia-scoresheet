@@ -1,7 +1,7 @@
 <template>
-    <div>
-        <the-navigation />
-        <slot />
-        <language-selector />
-    </div>
+  <div>
+    <the-navigation />
+    <slot />
+    <LanguageSelector />
+  </div>
 </template>

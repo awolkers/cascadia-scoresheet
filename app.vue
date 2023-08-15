@@ -11,6 +11,6 @@ useHead({
   titleTemplate: (titleChunk) => {
     const title = i18n.t('page.title');
     return titleChunk ? `${titleChunk} - ${title}` : title;
-  }
-})
+  },
+});
 </script>
