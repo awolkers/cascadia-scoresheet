@@ -2,6 +2,7 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
 
+  css: ['~/assets/css/main.css'],
   modules: ['@nuxtjs/i18n', '@nuxtjs/eslint-module'],
 
   i18n: {
