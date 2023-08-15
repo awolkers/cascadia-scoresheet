@@ -1,11 +1,8 @@
 <template>
-  <div>
-    <language-selector />
-    <the-navigation />
+  <NuxtLayout>
     <NuxtPage />
-  </div>
+  </NuxtLayout>
 </template>
-
 
 <script setup lang="ts">
 const i18n = useI18n();
