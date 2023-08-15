@@ -2,6 +2,24 @@
   "site": {
     "title": "Cascadia score sheet"
   },
+  "habitat": {
+    "forest": "Forest | Forests",
+    "mountain": "Mountain | Mountains",
+    "prairie": "Prairie | Prairies",
+    "river": "River | Rivers",
+    "wetland": "Wetland | Wetlands"
+  },
+  "wildlife": {
+    "bear": "Bear | Bears",
+    "elk": "Elk | Elks",
+    "salmon": "salmon | Salmons",
+    "hawk": "Hawk | Hawks",
+    "fox": "Fox | Foxes"
+  },
+  "token": {
+    "token": "Token | Tokens",
+    "nature": "Nature @.lower:token.token"
+  },
   "languageSelector": {
     "title": "Language"
   }
