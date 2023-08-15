@@ -9,6 +9,9 @@
     "postinstall": "nuxt prepare",
     "lint:prettier": "prettier --write ."
   },
+  "overrides": {
+    "vue": "latest"
+  },
   "devDependencies": {
     "@nuxt/devtools": "latest",
     "@nuxtjs/eslint-config-typescript": "^12.0.0",
@@ -20,5 +23,9 @@
     "eslint-plugin-nuxt": "^4.0.0",
     "nuxt": "^3.6.5",
     "prettier": "3.0.1"
+  },
+  "dependencies": {
+    "@pinia/nuxt": "^0.4.11",
+    "pinia": "^2.1.6"
   }
 }
