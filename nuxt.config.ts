@@ -3,7 +3,12 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
 
   css: ['~/assets/css/main.css'],
+
   modules: ['@nuxtjs/i18n', '@nuxtjs/eslint-module', '@pinia/nuxt'],
+
+  imports: {
+    dirs: ['./stores'],
+  },
 
   i18n: {
     locales: [

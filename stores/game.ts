@@ -2,29 +2,83 @@ import { defineStore, acceptHMRUpdate } from 'pinia';
 
 interface Player {
   name: string;
-  color: string;
 }
 
-interface Game {
-  todo: string;
+type PlayerScores = Array<number | null>;
+
+interface ScoreSheet {
+  habitats: {
+    forest: PlayerScores;
+    mountain: PlayerScores;
+    prairie: PlayerScores;
+    river: PlayerScores;
+    wetland: PlayerScores;
+  };
+  wildlife: {
+    bear: PlayerScores;
+    elk: PlayerScores;
+    salmon: PlayerScores;
+    hawk: PlayerScores;
+    fox: PlayerScores;
+  };
+  tokens: {
+    nature: PlayerScores;
+  };
 }
 
 interface State {
   players: Player[];
-  games: Game[];
+  scoreSheet: ScoreSheet | null;
+  history: ScoreSheet[];
 }
 
 export const useGameStore = defineStore('game', {
   state: (): State => ({
-    players: [{ name: 'Bob', color: 'pink' }],
-    games: [],
+    players: [],
+    scoreSheet: null,
+    history: [],
   }),
 
-  getters: {},
+  getters: {
+    getSectionScore: (state) => {
+      return (sectionName: string, playerIndex: number) => {
+        if (!state.scoreSheet) return;
+
+        const section = state.scoreSheet[sectionName];
+
+        return Object.keys(section).reduce(function (previous, key) {
+          return previous + (section[key][playerIndex] || 0);
+        }, 0);
+      };
+    },
+  },
 
   actions: {
     setPlayers(players: Player[]): void {
       this.players = players;
+    },
+    initNewGame(): void {
+      const scores: PlayerScores = Array(this.players.length).fill(null);
+
+      this.scoreSheet = {
+        habitats: {
+          forest: [...scores],
+          mountain: [...scores],
+          prairie: [...scores],
+          river: [...scores],
+          wetland: [...scores],
+        },
+        wildlife: {
+          bear: [...scores],
+          elk: [...scores],
+          salmon: [...scores],
+          hawk: [...scores],
+          fox: [...scores],
+        },
+        tokens: {
+          nature: [...scores],
+        },
+      };
     },
   },
 });

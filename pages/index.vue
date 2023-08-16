@@ -1,3 +1,6 @@
 <template>
-  <NewGameForm />
+  <div>
+    <NewGameForm />
+    <ScoreSheet />
+  </div>
 </template>

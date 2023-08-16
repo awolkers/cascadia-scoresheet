@@ -2,7 +2,7 @@
   "site": {
     "title": "Cascadia score sheet"
   },
-  "habitat": {
+  "habitats": {
     "forest": "Forest | Forests",
     "mountain": "Mountain | Mountains",
     "prairie": "Prairie | Prairies",
@@ -16,7 +16,7 @@
     "hawk": "Hawk | Hawks",
     "fox": "Fox | Foxes"
   },
-  "token": {
+  "tokens": {
     "token": "Token | Tokens",
     "nature": "Nature @.lower:token.token"
   },
