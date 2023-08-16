@@ -57,7 +57,15 @@ export const useGameStore = defineStore('game', {
     setPlayers(players: Player[]): void {
       this.players = players;
     },
-    initNewGame(): void {
+
+    moveToHistory(): void {
+      if (!this.scoreSheet) return;
+
+      this.history.push(this.scoreSheet);
+      this.scoreSheet = null;
+    },
+
+    initScoreSheet(): void {
       const scores: PlayerScores = Array(this.players.length).fill(null);
 
       this.scoreSheet = {

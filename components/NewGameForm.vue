@@ -4,11 +4,15 @@ const numberOfPlayers = ref(1);
 
 const onSubmitHandler = () => {
   store.setPlayers(Array(numberOfPlayers.value).fill({ name: 'Arno' }));
-  store.initNewGame();
+  store.initScoreSheet();
 };
 
 const onResetHandler = () => {
   store.$reset();
+};
+
+const onHistoryHandler = () => {
+  store.moveToHistory();
 };
 </script>
 
@@ -25,5 +29,6 @@ const onResetHandler = () => {
 
     <BaseButton type="submit" label="Start new game" />
     <BaseButton label="Reset" @click="onResetHandler" />
+    <BaseButton label="Move to history" @click="onHistoryHandler" />
   </form>
 </template>
