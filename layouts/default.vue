@@ -10,7 +10,7 @@
 
 <style module>
 .layout {
-  height: 100%;
+  height: 100dvh;
   display: flex;
   flex-direction: column;
 }
