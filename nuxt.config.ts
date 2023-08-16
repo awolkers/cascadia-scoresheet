@@ -4,10 +4,16 @@ export default defineNuxtConfig({
 
   css: ['~/assets/css/main.css'],
 
-  modules: ['@nuxtjs/i18n', '@nuxtjs/eslint-module', '@pinia/nuxt'],
+  modules: ['@nuxtjs/i18n', '@nuxtjs/eslint-module', '@pinia/nuxt', '@nuxtjs/google-fonts'],
 
   imports: {
     dirs: ['./stores'],
+  },
+
+  googleFonts: {
+    families: {
+      'Noto+Serif': [400, 700],
+    },
   },
 
   i18n: {

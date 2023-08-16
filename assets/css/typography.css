@@ -1,5 +1,5 @@
 body {
-  font-family: var(--font-family-primary);
+  font-family: var(--font-family-secondary);
   font-size: var(--font-size-16);
   color: var(--color-gray-10);
 }
@@ -10,8 +10,11 @@ h3,
 h4,
 h5,
 h6 {
+  font-family: var(--font-family-secondary);
   color: var(--color-primary);
   margin-top: 0;
   text-wrap: balance;
+  font-weight: 700;
+  text-transform: uppercase;
 
 }
