@@ -8,7 +8,7 @@ const onSubmitHandler = () => {
 
 <template>
   <form @submit.prevent="onSubmitHandler">
-    <table v-if="store.scoreSheet" border="1">
+    <table v-if="store.scoreSheet" :class="$style['score-sheet']">
       <thead>
         <tr>
           <td></td>
@@ -42,4 +42,16 @@ const onSubmitHandler = () => {
   </form>
 </template>
 
-<style module></style>
+<style module>
+.score-sheet {
+  border-collapse: collapse;
+  width: 100%;
+  table-layout: fixed;
+}
+
+.score-sheet td,
+.score-sheet th {
+  border: 2px solid red;
+  font-size: clamp(0.75rem, 0.1875rem + 2.5vw, 1.125rem);
+}
+</style>
