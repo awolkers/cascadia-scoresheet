@@ -2,6 +2,20 @@
   "site": {
     "title": "Cascadia scorekaart"
   },
+  "habitats": {
+    "forest": "Bos | Bossen",
+    "mountain": "Berg | Bergen",
+    "prairie": "Prairie | Prairies",
+    "river": "Rivier | Rivieren",
+    "wetland": "Drasland | Draslanden"
+  },
+  "wildlife": {
+    "bear": "Grizzlybeer | Grizzlyberen",
+    "elk": "Roosevelt wapiti | Roosevelt wapiti",
+    "salmon": "Chinook zalm | Chinook zalmen",
+    "hawk": "Roodstaartbuizerd | Roodstaartbuizerds",
+    "fox": "Rode vos | Rode vossen"
+  },
   "languageSelector": {
     "title": "Taal"
   }

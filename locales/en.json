@@ -10,11 +10,11 @@
     "wetland": "Wetland | Wetlands"
   },
   "wildlife": {
-    "bear": "Bear | Bears",
-    "elk": "Elk | Elks",
-    "salmon": "salmon | Salmons",
-    "hawk": "Hawk | Hawks",
-    "fox": "Fox | Foxes"
+    "bear": "Grizzly bear | Grizzly bears",
+    "elk": "Roosevelt elk | Roosevelt elks",
+    "salmon": "Chinook salmon | Chinook salmons",
+    "hawk": "Red-Tailed hawk | Red-Tailed hawk",
+    "fox": "Red fox | Red foxes"
   },
   "tokens": {
     "token": "Token | Tokens",
