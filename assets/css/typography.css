@@ -11,5 +11,7 @@ h4,
 h5,
 h6 {
   color: var(--color-primary);
+  margin-top: 0;
+  text-wrap: balance;
 
 }

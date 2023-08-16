@@ -1,6 +1,12 @@
 <template>
-  <header>
+  <header :class="$style['page-header']">
     <h1>{{ $t('site.title') }}</h1>
     <TheNavigation />
   </header>
 </template>
+
+<style module>
+.page-header {
+  background: lightskyblue;
+}
+</style>
