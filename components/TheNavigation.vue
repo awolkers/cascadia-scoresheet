@@ -5,7 +5,7 @@
         <NuxtLinkLocale to="/">Home</NuxtLinkLocale>
       </li>
       <li>
-        <NuxtLinkLocale to="/about">About</NuxtLinkLocale>
+        <NuxtLinkLocale to="/history">Game history</NuxtLinkLocale>
       </li>
     </ul>
   </nav>
