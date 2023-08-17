@@ -2,12 +2,15 @@
 const store = useGameStore();
 const numberOfPlayers = ref(1);
 
+const confirmResetDialogOpen = ref(false);
+
 const onSubmitHandler = () => {
   store.setPlayers(Array(numberOfPlayers.value).fill({ name: 'Arno' }));
   store.initScoreSheet();
 };
 
 const onResetHandler = () => {
+  confirmResetDialogOpen.value = false;
   store.$reset();
 };
 
@@ -27,8 +30,19 @@ const onHistoryHandler = () => {
       <option :value="4">4</option>
     </select>
 
-    <BaseButton type="submit" label="Start new game" />
-    <BaseButton label="Reset" @click="onResetHandler" />
-    <BaseButton label="Move to history" @click="onHistoryHandler" />
+    <BaseButtonGroup>
+      <BaseButton type="submit" label="Start new game" />
+      <BaseButton label="Reset" @click="confirmResetDialogOpen = true" />
+      <BaseButton label="Move to history" @click="onHistoryHandler" />
+    </BaseButtonGroup>
+
+    <BaseDialog :open="confirmResetDialogOpen" @close="confirmResetDialogOpen = false">
+      <h3>Are you sure you want to reset?</h3>
+      <p>All game data will be lost including the history.</p>
+      <BaseButtonGroup>
+        <BaseButton label="Yes" @click="onResetHandler" />
+        <BaseButton label="Cancel" @click="confirmResetDialogOpen = false" />
+      </BaseButtonGroup>
+    </BaseDialog>
   </form>
 </template>
