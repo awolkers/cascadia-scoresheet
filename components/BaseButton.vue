@@ -32,10 +32,13 @@ const tag = computed(() => {
   border-radius: var(--border-radius-small);
   padding: var(--space-8) var(--space-16);
   cursor: pointer;
-  transition: background var(--transition-fast) ease;
+  transition:
+    background var(--transition-fast) ease,
+    outline-color var(--transition-fast) ease;
 }
 
-.button:hover {
+.button:hover,
+.button:focus-visible {
   background: var(--color-secondary);
 }
 </style>
