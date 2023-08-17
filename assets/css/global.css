@@ -1,6 +1,6 @@
 *:focus-visible {
   outline: 2px dashed var(--color-primary);
-  outline-offset: var(--base-unit);
+  outline-offset: 2px;
 }
 
 ::backdrop {
@@ -26,5 +26,5 @@ body {
 }
 
 body {
-  background-color: var(--color-secondary);
+  background-color: var(--color-tertiary);
 }

@@ -30,7 +30,12 @@ const tag = computed(() => {
   color: var(--color-white);
   font-weight: var(--font-weight-bold);
   border-radius: var(--border-radius-small);
-  padding: var(--space-8);
+  padding: var(--space-8) var(--space-16);
   cursor: pointer;
+  transition: background var(--transition-fast) ease;
+}
+
+.button:hover {
+  background: var(--color-secondary);
 }
 </style>
