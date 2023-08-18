@@ -38,7 +38,7 @@ const onHistoryHandler = () => {
 
     <BaseDialog :open="confirmResetDialogOpen" @close="confirmResetDialogOpen = false">
       <h3>Are you sure you want to reset?</h3>
-      <p>All game data will be lost including the history.</p>
+      <p>All game data including the history will be lost.</p>
       <BaseButtonGroup>
         <BaseButton label="Yes" @click="onResetHandler" />
         <BaseButton label="Cancel" @click="confirmResetDialogOpen = false" />
