@@ -3,6 +3,10 @@ export default defineNuxtConfig({
   ssr: true,
   devtools: { enabled: true },
 
+  app: {
+    baseURL: '/cascadia-scoresheet/',
+  },
+
   css: ['~/assets/css/main.css'],
 
   modules: ['@nuxtjs/i18n', '@nuxtjs/eslint-module', '@pinia/nuxt', '@nuxtjs/google-fonts'],
