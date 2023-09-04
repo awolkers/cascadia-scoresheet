@@ -1,6 +1,12 @@
 # Cascadia board game score sheet
 
-A reusable, online score sheet for the [Cascadia board game](https://boardgamegeek.com/boardgame/295947/cascadia).
+Codebase for reusable, online score sheet for the [Cascadia board game](https://boardgamegeek.com/boardgame/295947/cascadia). The score sheet itself can be found [here](https://awolkers.github.io/cascadia-scoresheet/).
+
+Features:
+
+- Multilingual
+- Score history
+- 1 up to 4 players
 
 ## Setup
 
