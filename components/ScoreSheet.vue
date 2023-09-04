@@ -4,6 +4,7 @@ const store = useGameStore();
 const onSubmitHandler = () => {
   store.calculateBonusScores();
   store.calculateTotalScores();
+  store.calculateWinner();
 };
 </script>
 
@@ -31,7 +32,7 @@ const onSubmitHandler = () => {
           <tr>
             <th>subtotaal {{ section }}</th>
             <td v-for="(score, index) in store.scoreSheet.totals[section]" :key="index">
-              {{ score.score }}
+              {{ score }}
             </td>
           </tr>
         </template>
@@ -67,8 +68,8 @@ const onSubmitHandler = () => {
       <tfoot>
         <tr>
           <th>Total</th>
-          <td v-for="(scores, index) in store.scoreSheet.totals.total" :key="index">
-            {{ scores.score }}
+          <td v-for="(score, index) in store.scoreSheet.totals.total" :key="index">
+            {{ score }}
           </td>
         </tr>
       </tfoot>

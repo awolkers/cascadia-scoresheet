@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const store = useGameStore();
-const numberOfPlayers = ref(1);
+const numberOfPlayers = ref(3);
 
 const confirmResetDialogOpen = ref(false);
 

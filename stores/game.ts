@@ -10,6 +10,7 @@ interface EntityScore {
 }
 
 type PlayersScore = EntityScore[];
+type PlayersTotals = Array<number | null>;
 
 interface ScoreSheet {
   wildlife: {
@@ -28,12 +29,12 @@ interface ScoreSheet {
   };
   natureTokens: PlayersScore;
 
-  // totals: Record<string, number | null>;
   totals: {
-    habitats: number | null;
-    wildlife: number | null;
-    total: number | null;
+    habitats: Array<number | null>;
+    wildlife: Array<number | null>;
+    total: Array<number | null>;
   };
+  winners: Array<number>;
 }
 
 // interface ScoreSheet {
@@ -89,7 +90,7 @@ export const useGameStore = defineStore('game', {
 
     calculateBonusScores(): void {
       if (!this.scoreSheet) return;
-      for (const [habitat, scores] of Object.entries(this.scoreSheet.habitats)) {
+      for (const [_habitat, scores] of Object.entries(this.scoreSheet.habitats)) {
         const scoreOccurrences: Record<string, number> = {};
         const topScoresSorted = [
           ...new Set(
@@ -152,12 +153,24 @@ export const useGameStore = defineStore('game', {
       this.players.forEach((_player, index) => {
         if (!this.scoreSheet) return;
 
-        this.scoreSheet.totals.wildlife[index].score = Object.values(this.scoreSheet.wildlife).reduce(function (
+        this.scoreSheet.totals.wildlife[index] = Object.values(this.scoreSheet.wildlife).reduce(function (
           previous,
           scores
         ) {
           return previous + (scores[index].score || 0) + (scores[index].bonus || 0);
         }, 0);
+
+        this.scoreSheet.totals.habitats[index] = Object.values(this.scoreSheet.habitats).reduce(function (
+          previous,
+          scores
+        ) {
+          return previous + (scores[index].score || 0) + (scores[index].bonus || 0);
+        }, 0);
+
+        this.scoreSheet.totals.total[index] =
+          this.scoreSheet.natureTokens[index].score +
+          this.scoreSheet.totals.wildlife[index] +
+          this.scoreSheet.totals.habitats[index];
       });
 
       // this.scoreSheet = this.scoreSheet
@@ -171,8 +184,15 @@ export const useGameStore = defineStore('game', {
       // calculate totals
     },
 
+    calculateWinner() {
+      // check highest score
+      // check is highscore has multiple occurences
+      // if so then check who has most nature tokens.
+    },
+
     initScoreSheet(): void {
       const scores: PlayersScore = Array(this.players.length).fill({ score: 1, bonus: null });
+      const totals: PlayersTotals = Array(this.players.length).fill(null);
 
       this.scoreSheet = {
         wildlife: {
@@ -191,10 +211,11 @@ export const useGameStore = defineStore('game', {
         },
         natureTokens: JSON.parse(JSON.stringify(scores)),
         totals: {
-          habitats: JSON.parse(JSON.stringify(scores)),
-          wildlife: JSON.parse(JSON.stringify(scores)),
-          total: JSON.parse(JSON.stringify(scores)),
+          habitats: JSON.parse(JSON.stringify(totals)),
+          wildlife: JSON.parse(JSON.stringify(totals)),
+          total: JSON.parse(JSON.stringify(totals)),
         },
+        winners: [],
       };
     },
   },
