@@ -6,6 +6,9 @@
 
 <style module>
 .page-footer {
-  background: lightpink;
+  background: var(--color-primary);
+  display: flex;
+  padding: var(--space-8);
+  justify-content: end;
 }
 </style>

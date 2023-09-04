@@ -1,5 +1,5 @@
 *:focus-visible {
-  outline: 2px dashed var(--color-primary);
+  outline: 2px dashed var(--outline-color, var(--color-primary));
   outline-offset: 2px;
 }
 
@@ -26,4 +26,14 @@ body {
 
 body {
   background-color: var(--color-tertiary);
+}
+
+.sr-only:not(:focus):not(:active) {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
 }
