@@ -1,6 +1,7 @@
 {
   "site": {
-    "title": "Cascadia scorekaart"
+    "title": "Cascadia scorekaart",
+    "description": "Herbruikbare, online scorekaart voor het Cascadia bordspel."
   },
   "habitats": {
     "forest": "Bos | Bossen",

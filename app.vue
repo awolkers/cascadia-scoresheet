@@ -1,9 +1,3 @@
-<template>
-  <NuxtLayout>
-    <NuxtPage />
-  </NuxtLayout>
-</template>
-
 <script setup lang="ts">
 const i18n = useI18n();
 
@@ -13,4 +7,14 @@ useHead({
     return titleChunk ? `${titleChunk} - ${title}` : title;
   },
 });
+
+useSeoMeta({
+  description: () => i18n.t('site.description'),
+});
 </script>
+
+<template>
+  <NuxtLayout>
+    <NuxtPage />
+  </NuxtLayout>
+</template>

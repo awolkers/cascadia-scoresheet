@@ -1,3 +1,9 @@
+<script setup>
+useSeoMeta({
+  title: 'History',
+});
+</script>
+
 <template>
   <div>
     <h1>History</h1>

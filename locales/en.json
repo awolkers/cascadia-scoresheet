@@ -1,6 +1,7 @@
 {
   "site": {
-    "title": "Cascadia score sheet"
+    "title": "Cascadia score sheet",
+    "description": "Reusable, online score sheet for the Cascadia board game."
   },
   "habitats": {
     "forest": "Forest | Forests",
