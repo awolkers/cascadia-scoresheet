@@ -5,6 +5,27 @@ export default defineNuxtConfig({
 
   app: {
     baseURL: '/cascadia-scoresheet/',
+    head: {
+      meta: [
+        {
+          name: 'viewport',
+          content: 'width=device-width, initial-scale=1',
+        },
+        {
+          charset: 'utf-8',
+        },
+        {
+          name: 'theme-color',
+          content: '#7E4E25',
+        },
+        {
+          name: 'color-scheme',
+          content: 'normal',
+        },
+      ],
+
+      link: [{ rel: 'icon', type: 'image/x-icon', href: 'favicon.png' }],
+    },
   },
 
   css: ['~/assets/css/main.css'],
