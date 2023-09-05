@@ -37,15 +37,22 @@ onMounted(() => {
 
 <template>
   <dialog ref="dialog" v-bind="attrs" :class="$style['dialog']" @close="onClose">
-    <slot />
+    <div :class="$style['dialog__content']">
+      <slot />
+    </div>
   </dialog>
 </template>
 
 <style module>
 .dialog {
-  border: 1px solid var(--color-primary);
-  border-radius: var(--border-radius-small);
-  max-width: min(calc(100vw - var(--space-16)), 64ch);
+  border: 0;
+  max-width: min(calc(100vw - var(--space-32)), 64ch);
+  padding: var(--space-8);
+  background: var(--color-tertiary);
+  box-shadow: var(--space-base-unit) var(--space-base-unit) 0 rgba(0, 0, 0, 0.25);
+}
+.dialog__content {
+  border: 2px solid var(--color-secondary);
   padding: var(--space-16);
 }
 </style>
