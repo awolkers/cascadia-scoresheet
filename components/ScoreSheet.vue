@@ -2,7 +2,7 @@
 const store = useGameStore();
 
 const onSubmitHandler = () => {
-  if (isGameFinished.value) return;
+  if (store.isGameFinished) return;
 
   confirmDialogOpen.value = true;
 };
@@ -25,10 +25,6 @@ const onCalculateHandler = () => {
   store.calculateTotalScores();
   store.calculateWinner();
 };
-
-const isGameFinished = computed(() => {
-  return store.scoreSheet !== null && store.scoreSheet.winners.length > 0;
-});
 </script>
 
 <template>
@@ -39,6 +35,7 @@ const isGameFinished = computed(() => {
           <td></td>
           <th v-for="(player, index) in store.players" :key="index">
             {{ player.name }}
+            <span v-if="store.gamesWon(index)">({{ store.gamesWon(index) }})</span>
           </th>
         </tr>
       </thead>
@@ -50,7 +47,7 @@ const isGameFinished = computed(() => {
             <td v-for="(score, index) in scores" :key="index">
               <input
                 v-model.lazy.number="score.score"
-                :disabled="isGameFinished"
+                :disabled="store.isGameFinished"
                 type="number"
                 max="99"
                 step="1"
@@ -72,7 +69,7 @@ const isGameFinished = computed(() => {
           <td v-for="(score, index) in store.scoreSheet.natureTokens" :key="index">
             <input
               v-model.lazy.number="score.score"
-              :disabled="isGameFinished"
+              :disabled="store.isGameFinished"
               type="number"
               max="99"
               step="1"
@@ -96,8 +93,8 @@ const isGameFinished = computed(() => {
         </tr>
       </tfoot>
     </table>
-    <BaseButton v-if="!isGameFinished" type="submit" label="Calculate scores" />
-    <BaseButton v-if="isGameFinished" type="button" label="Start new game" @click="onNewGameHandler" />
+    <BaseButton v-if="!store.isGameFinished" type="submit" label="Calculate scores" />
+    <BaseButton v-if="store.isGameFinished" type="button" label="Start new game" @click="onNewGameHandler" />
 
     <BaseDialog :open="confirmDialogOpen" @close="confirmDialogOpen = false">
       <h3>Are you sure?</h3>

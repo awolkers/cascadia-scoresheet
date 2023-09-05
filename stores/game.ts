@@ -65,15 +65,23 @@ export const useGameStore = defineStore('game', {
   }),
 
   getters: {
-    //   getSectionScore: (state) => {
-    //     return (sectionName: string, playerIndex: number) => {
-    //       if (!state.scoreSheet) return;
-    //       const section = state.scoreSheet[sectionName];
-    //       return Object.keys(section).reduce(function (previous, key) {
-    //         return previous + (section[key][playerIndex] || 0);
-    //       }, 0);
-    //     };
-    //   },
+    gamesInHistory: (state) => state.history.length,
+
+    gamesWon: (state) => {
+      return (playerId) => {
+        let gamesWon = state.history.reduce(
+          (acc, scoreSheet) => (scoreSheet.winners.includes(playerId) ? acc + 1 : acc),
+          0
+        );
+        if (state.isGameFinished && state.scoreSheet.winners.includes(playerId)) gamesWon++;
+
+        return gamesWon;
+      };
+    },
+
+    isGameFinished: (state) => {
+      return state.scoreSheet !== null && state.scoreSheet.winners.length > 0;
+    },
   },
 
   actions: {
@@ -90,7 +98,7 @@ export const useGameStore = defineStore('game', {
 
     calculateBonusScores(): void {
       if (!this.scoreSheet) return;
-      for (const [_habitat, scores] of Object.entries(this.scoreSheet.habitats)) {
+      for (const [habitat, scores] of Object.entries(this.scoreSheet.habitats)) {
         const scoreOccurrences: Record<string, number> = {};
         const topScoresSorted = [
           ...new Set(
