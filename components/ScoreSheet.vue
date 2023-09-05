@@ -2,7 +2,14 @@
 const store = useGameStore();
 
 const onSubmitHandler = () => {
+  if (isGameFinished.value) return;
+
   confirmDialogOpen.value = true;
+};
+
+const onNewGameHandler = () => {
+  store.moveToHistory();
+  store.initScoreSheet();
 };
 
 const isWinner = (playerIndex: number) => {
@@ -18,6 +25,10 @@ const onCalculateHandler = () => {
   store.calculateTotalScores();
   store.calculateWinner();
 };
+
+const isGameFinished = computed(() => {
+  return store.scoreSheet !== null && store.scoreSheet.winners.length > 0;
+});
 </script>
 
 <template>
@@ -37,7 +48,15 @@ const onCalculateHandler = () => {
           <tr v-for="(scores, animal) in store.scoreSheet[section]" :key="animal">
             <th>{{ $t(`${section}.${animal}`, 2) }}</th>
             <td v-for="(score, index) in scores" :key="index">
-              <input v-model.lazy.number="score.score" type="number" max="99" step="1" min="0" required />
+              <input
+                v-model.lazy.number="score.score"
+                :disabled="isGameFinished"
+                type="number"
+                max="99"
+                step="1"
+                min="0"
+                required
+              />
               <template v-if="typeof score.bonus === 'number'">{{ score.bonus }}</template>
             </td>
           </tr>
@@ -51,7 +70,15 @@ const onCalculateHandler = () => {
         <tr>
           <th>nature tokens</th>
           <td v-for="(score, index) in store.scoreSheet.natureTokens" :key="index">
-            <input v-model.lazy.number="score.score" type="number" max="99" step="1" min="0" required />
+            <input
+              v-model.lazy.number="score.score"
+              :disabled="isGameFinished"
+              type="number"
+              max="99"
+              step="1"
+              min="0"
+              required
+            />
           </td>
         </tr>
       </tbody>
@@ -69,7 +96,8 @@ const onCalculateHandler = () => {
         </tr>
       </tfoot>
     </table>
-    <BaseButton type="submit" label="Calculate scores" />
+    <BaseButton v-if="!isGameFinished" type="submit" label="Calculate scores" />
+    <BaseButton v-if="isGameFinished" type="button" label="Start new game" @click="onNewGameHandler" />
 
     <BaseDialog :open="confirmDialogOpen" @close="confirmDialogOpen = false">
       <h3>Are you sure?</h3>
