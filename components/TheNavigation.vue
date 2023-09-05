@@ -1,3 +1,7 @@
+<script setup lang="ts">
+const store = useGameStore();
+</script>
+
 <template>
   <nav>
     <ul :class="$style['the-navigation']">
@@ -5,7 +9,10 @@
         <NuxtLinkLocale to="/">Home</NuxtLinkLocale>
       </li>
       <li>
-        <NuxtLinkLocale to="/history">Game history</NuxtLinkLocale>
+        <NuxtLinkLocale to="/history">
+          Game history
+          <span v-if="store.gamesInHistory">({{ store.gamesInHistory }})</span>
+        </NuxtLinkLocale>
       </li>
     </ul>
   </nav>
