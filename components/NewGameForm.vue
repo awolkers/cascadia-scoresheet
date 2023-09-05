@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const store = useGameStore();
-const numberOfPlayers = ref(3);
+const numberOfPlayers = ref(2);
 
 const confirmResetDialogOpen = ref(false);
 
@@ -32,7 +32,7 @@ const onHistoryHandler = () => {
 
     <BaseButtonGroup>
       <BaseButton type="submit" label="Start new game" />
-      <BaseButton label="Reset" @click="confirmResetDialogOpen = true" />
+      <BaseButton label="Reset" secondary @click="confirmResetDialogOpen = true" />
       <BaseButton label="Move to history" @click="onHistoryHandler" />
     </BaseButtonGroup>
 
@@ -41,7 +41,7 @@ const onHistoryHandler = () => {
       <p>All game data including the history will be lost.</p>
       <BaseButtonGroup>
         <BaseButton label="Yes" @click="onResetHandler" />
-        <BaseButton label="Cancel" @click="confirmResetDialogOpen = false" />
+        <BaseButton label="Cancel" secondary @click="confirmResetDialogOpen = false" />
       </BaseButtonGroup>
     </BaseDialog>
   </form>

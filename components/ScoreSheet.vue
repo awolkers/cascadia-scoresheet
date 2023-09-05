@@ -2,19 +2,27 @@
 const store = useGameStore();
 
 const onSubmitHandler = () => {
-  store.calculateBonusScores();
-  store.calculateTotalScores();
-  store.calculateWinner();
+  confirmDialogOpen.value = true;
 };
 
 const isWinner = (playerIndex: number) => {
   return store.scoreSheet?.winners.includes(playerIndex);
 };
+
+const confirmDialogOpen = ref(false);
+
+const onCalculateHandler = () => {
+  confirmDialogOpen.value = false;
+
+  store.calculateBonusScores();
+  store.calculateTotalScores();
+  store.calculateWinner();
+};
 </script>
 
 <template>
-  <form @submit.prevent="onSubmitHandler">
-    <table v-if="store.scoreSheet" :class="$style['score-sheet']">
+  <form v-if="store.scoreSheet" @submit.prevent="onSubmitHandler">
+    <table :class="$style['score-sheet']">
       <thead>
         <tr>
           <td></td>
@@ -48,27 +56,6 @@ const isWinner = (playerIndex: number) => {
         </tr>
       </tbody>
 
-      <!-- <tbody v-for="(entities, sectionName) in store.scoreSheet" :key="sectionName">
-        <tr v-for="(entityScores, entityName) in entities" :key="entityName">
-          <th>{{ $t(`${sectionName}.${entityName}`, 2) }}</th>
-          <td v-for="(score, index) in entityScores" :key="index">
-            <input
-              v-model.lazy.number="store.scoreSheet[sectionName][entityName][index]"
-              type="number"
-              max="999"
-              step="1"
-              min="0"
-              required
-            />
-          </td>
-        </tr>
-        <tr>
-          <th>subtotaal {{ sectionName }}</th>
-          <td v-for="(_player, index) in store.players" :key="index">
-            {{ store.getSectionScore(sectionName, index) }}
-          </td>
-        </tr>
-      </tbody> -->
       <tfoot>
         <tr>
           <th>Total</th>
@@ -83,6 +70,15 @@ const isWinner = (playerIndex: number) => {
       </tfoot>
     </table>
     <BaseButton type="submit" label="Calculate scores" />
+
+    <BaseDialog :open="confirmDialogOpen" @close="confirmDialogOpen = false">
+      <h3>Are you sure?</h3>
+      <p>This will finish the game and calculates the winner. Make sure all scores are filled in correctly.</p>
+      <BaseButtonGroup>
+        <BaseButton label="Continue" @click="onCalculateHandler" />
+        <BaseButton label="Cancel" secondary @click="confirmDialogOpen = false" />
+      </BaseButtonGroup>
+    </BaseDialog>
   </form>
 </template>
 
@@ -95,12 +91,12 @@ const isWinner = (playerIndex: number) => {
 
 .score-sheet td,
 .score-sheet th {
-  border: 2px solid red;
+  border: 2px solid var(--color-secondary);
   font-size: clamp(0.75rem, 0.1875rem + 2.5vw, 1.125rem);
   text-align: center;
 }
 
 .score-sheet__winner {
-  background-color: red;
+  background-color: var(--color-secondary);
 }
 </style>
