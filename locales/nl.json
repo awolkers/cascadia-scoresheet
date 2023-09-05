@@ -17,6 +17,10 @@
     "hawk": "Roodstaartbuizerd | Roodstaartbuizerds",
     "fox": "Rode vos | Rode vossen"
   },
+  "tokens": {
+    "token": "Fiche | Fiches",
+    "nature": "Natuur@.lower:tokens.token"
+  },
   "languageSelector": {
     "title": "Taalkeuze"
   }

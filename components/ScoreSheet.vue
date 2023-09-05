@@ -65,7 +65,7 @@ const onCalculateHandler = () => {
           </tr>
         </template>
         <tr>
-          <th>nature tokens</th>
+          <th>{{ $t('tokens.nature', 2) }}</th>
           <td v-for="(score, index) in store.scoreSheet.natureTokens" :key="index">
             <input
               v-model.lazy.number="score.score"

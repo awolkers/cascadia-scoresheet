@@ -1,4 +1,6 @@
 <script setup>
+const store = useGameStore();
+
 useSeoMeta({
   title: 'History',
 });
@@ -7,6 +9,7 @@ useSeoMeta({
 <template>
   <div>
     <h1>History</h1>
+    <GamesList v-if="store.history.length" :score-sheets="store.history" :players="store.players" />
     <p>Todo history:</p>
     <ul>
       <li>Summary of wins per player</li>

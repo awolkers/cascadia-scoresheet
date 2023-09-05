@@ -19,7 +19,7 @@
   },
   "tokens": {
     "token": "Token | Tokens",
-    "nature": "Nature @.lower:token.token"
+    "nature": "Nature @.lower:tokens.token"
   },
   "languageSelector": {
     "title": "Language"
