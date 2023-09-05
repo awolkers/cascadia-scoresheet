@@ -7,6 +7,7 @@
 <style module>
 .button-group {
   display: flex;
+  flex-wrap: wrap;
   gap: var(--space-8);
 }
 </style>
