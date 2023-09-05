@@ -6,6 +6,10 @@ const onSubmitHandler = () => {
   store.calculateTotalScores();
   store.calculateWinner();
 };
+
+const isWinner = (playerIndex: number) => {
+  return store.scoreSheet?.winners.includes(playerIndex);
+};
 </script>
 
 <template>
@@ -68,7 +72,11 @@ const onSubmitHandler = () => {
       <tfoot>
         <tr>
           <th>Total</th>
-          <td v-for="(score, index) in store.scoreSheet.totals.total" :key="index">
+          <td
+            v-for="(score, index) in store.scoreSheet.totals.total"
+            :key="index"
+            :class="isWinner(index) ? $style['score-sheet__winner'] : null"
+          >
             {{ score }}
           </td>
         </tr>
@@ -89,5 +97,10 @@ const onSubmitHandler = () => {
 .score-sheet th {
   border: 2px solid red;
   font-size: clamp(0.75rem, 0.1875rem + 2.5vw, 1.125rem);
+  text-align: center;
+}
+
+.score-sheet__winner {
+  background-color: red;
 }
 </style>

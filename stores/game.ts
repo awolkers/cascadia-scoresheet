@@ -145,8 +145,6 @@ export const useGameStore = defineStore('game', {
           }
         });
       }
-
-      // console.log(`${key}: ${value}`);
     },
 
     calculateTotalScores(): void {
@@ -172,26 +170,31 @@ export const useGameStore = defineStore('game', {
           this.scoreSheet.totals.wildlife[index] +
           this.scoreSheet.totals.habitats[index];
       });
-
-      // this.scoreSheet = this.scoreSheet
-
-      // calculate totals for wildlife
-      // calculate bonuses for habitats
-      // one player: 2 bonus habitat >= 7
-      // two players: 2 bonus points for largest. 1 each if tie
-      // three/four players: 3 bonus points for largest
-      // calculate totals for habitats
-      // calculate totals
     },
 
     calculateWinner() {
-      // check highest score
-      // check is highscore has multiple occurences
-      // if so then check who has most nature tokens.
+      if (!this.scoreSheet) return;
+
+      const highScore = Math.max(...this.scoreSheet.totals.total);
+
+      const playersWithHighScore = this.scoreSheet.totals.total.reduce(
+        (acc: number[], score, index) => (score === highScore && acc.push(index), acc),
+        []
+      );
+
+      const natureTokensHighScore = Math.max(
+        ...this.scoreSheet.natureTokens
+          .filter((scores, index) => playersWithHighScore.includes(index))
+          .map((scores) => scores.score)
+      );
+
+      this.scoreSheet.winners = playersWithHighScore.filter((playerIndex) => {
+        return this.scoreSheet.natureTokens[playerIndex].score === natureTokensHighScore;
+      });
     },
 
     initScoreSheet(): void {
-      const scores: PlayersScore = Array(this.players.length).fill({ score: 1, bonus: null });
+      const scores: PlayersScore = Array(this.players.length).fill({ score: null, bonus: null });
       const totals: PlayersTotals = Array(this.players.length).fill(null);
 
       this.scoreSheet = {
