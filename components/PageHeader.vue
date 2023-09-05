@@ -7,6 +7,6 @@
 
 <style module>
 .page-header {
-  background: lightskyblue;
+  background: var(--color-secondary);
 }
 </style>
