@@ -94,7 +94,7 @@ export const useGameStore = defineStore('game', {
 
     calculateBonusScores(): void {
       if (!this.scoreSheet) return;
-      for (const [habitat, scores] of Object.entries(this.scoreSheet.habitats)) {
+      for (const scores of Object.values(this.scoreSheet.habitats)) {
         const scoreOccurrences: Record<string, number> = {};
         const topScoresSorted = [
           ...new Set(
