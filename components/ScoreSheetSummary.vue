@@ -5,6 +5,10 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {});
+
+const isWinner = (playerIndex: number) => {
+  return props.scoreSheet.winners.includes(playerIndex);
+};
 </script>
 <template>
   <table :class="$style['score-sheet']">
@@ -39,7 +43,11 @@ const props = withDefaults(defineProps<Props>(), {});
     <tfoot>
       <tr>
         <th>Total</th>
-        <td v-for="(score, index) in scoreSheet.totals.total" :key="index">
+        <td
+          v-for="(score, index) in scoreSheet.totals.total"
+          :key="index"
+          :class="isWinner(index) ? $style['score-sheet__winner'] : null"
+        >
           {{ score }}
         </td>
       </tr>
@@ -52,5 +60,14 @@ const props = withDefaults(defineProps<Props>(), {});
   border-collapse: collapse;
   width: 100%;
   table-layout: fixed;
+}
+
+.score-sheet td,
+.score-sheet th {
+  border: 1px solid var(--color-secondary);
+}
+.score-sheet__winner {
+  background-color: var(--color-secondary);
+  color: var(--color-white);
 }
 </style>
