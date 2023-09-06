@@ -13,11 +13,16 @@ useSeoMeta({
       <WinsSummary />
       <GamesList :score-sheets="store.history" :players="store.players" />
     </template>
-    <p>Todo history:</p>
+    <template v-else>
+      <p>No game history available yet.</p>
+    </template>
+
+    <h3>Todo lists</h3>
+    <h4>history page</h4>
     <ul>
       <li>History add end date to game</li>
     </ul>
-    <p>Todo homepage:</p>
+    <h4>Homepage</h4>
     <ul>
       <li>style score sheet</li>
       <li>style new game form</li>
