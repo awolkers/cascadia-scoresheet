@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref, watchEffect, useAttrs, nextTick } from 'vue';
+import { onMounted, ref, watchEffect, useAttrs } from 'vue';
 
 const dialog = ref<InstanceType<any> | undefined>(null);
 const internalOpen = ref(false);
@@ -15,6 +15,7 @@ const props = defineProps({
 
 const openCloseDialog = () => {
   if (!dialog?.value) return;
+
   if (props.open) {
     props.inline ? dialog.value.show() : dialog.value.showModal();
   } else {
