@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { onMounted, ref, watchEffect, useAttrs } from 'vue';
+import { onMounted, ref, watchEffect, useAttrs, nextTick } from 'vue';
 
 const dialog = ref<InstanceType<any> | undefined>(null);
 const internalOpen = ref(false);
+const isClosing = ref(false);
 const attrs = useAttrs();
 
 const emit = defineEmits(['close']);
@@ -17,11 +18,20 @@ const openCloseDialog = () => {
   if (props.open) {
     props.inline ? dialog.value.show() : dialog.value.showModal();
   } else {
-    dialog.value.close();
+    startClosing();
   }
 };
 
-const onClose = () => {
+const startClosing = () => {
+  if (!dialog.value.open) return;
+
+  dialog.value.addEventListener('animationend', close, { once: true });
+  isClosing.value = true;
+};
+
+const close = () => {
+  isClosing.value = false;
+  dialog.value.close();
   emit('close');
 };
 
@@ -36,7 +46,12 @@ onMounted(() => {
 </script>
 
 <template>
-  <dialog ref="dialog" v-bind="attrs" :class="$style['dialog']" @close="onClose">
+  <dialog
+    ref="dialog"
+    v-bind="attrs"
+    :class="[$style['dialog'], isClosing ? $style['dialog--closing'] : null]"
+    @close="close"
+  >
     <div :class="$style['dialog__content']">
       <slot />
     </div>
@@ -45,6 +60,8 @@ onMounted(() => {
 
 <style module>
 .dialog {
+  --dialog-animation-duration: var(--transition-slower);
+
   border: 0;
   max-width: min(calc(100vw - var(--space-32)), 64ch);
   padding: var(--space-8);
@@ -54,5 +71,20 @@ onMounted(() => {
 .dialog__content {
   border: 2px solid var(--color-secondary);
   padding: var(--space-16);
+}
+
+.dialog[open] :global {
+  animation: slideIn 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.dialog[open]::backdrop :global {
+  animation: fadeIn 0.25s ease-out;
+}
+
+.dialog--closing[open] :global {
+  animation: slideOut 0.15s cubic-bezier(0.36, 0, 0.66, -0.56);
+}
+
+.dialog--closing[open]::backdrop :global {
+  animation: fadeOut 0.15s ease-in;
 }
 </style>
