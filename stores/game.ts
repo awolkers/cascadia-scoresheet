@@ -68,15 +68,8 @@ export const useGameStore = defineStore('game', {
     gamesInHistory: (state) => state.history.length,
 
     gamesWon: (state) => {
-      return (playerId) => {
-        let gamesWon = state.history.reduce(
-          (acc, scoreSheet) => (scoreSheet.winners.includes(playerId) ? acc + 1 : acc),
-          0
-        );
-        if (state.isGameFinished && state.scoreSheet.winners.includes(playerId)) gamesWon++;
-
-        return gamesWon;
-      };
+      return (playerId) =>
+        state.history.reduce((acc, scoreSheet) => (scoreSheet.winners.includes(playerId) ? acc + 1 : acc), 0);
     },
 
     isGameFinished: (state) => {
@@ -89,11 +82,10 @@ export const useGameStore = defineStore('game', {
       this.players = players;
     },
 
-    moveToHistory(): void {
+    addToHistory(): void {
       if (!this.scoreSheet) return;
 
-      this.history.push(this.scoreSheet);
-      this.scoreSheet = null;
+      this.history.push(JSON.parse(JSON.stringify(this.scoreSheet)));
     },
 
     calculateBonusScores(): void {
@@ -202,7 +194,7 @@ export const useGameStore = defineStore('game', {
     },
 
     initScoreSheet(): void {
-      const scores: PlayersScore = Array(this.players.length).fill({ score: null, bonus: null });
+      const scores: PlayersScore = Array(this.players.length).fill({ score: 0, bonus: null });
       const totals: PlayersTotals = Array(this.players.length).fill(null);
 
       this.scoreSheet = {

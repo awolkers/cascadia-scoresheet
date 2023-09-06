@@ -1,6 +1,12 @@
 <script setup lang="ts">
 const store = useGameStore();
 
+const confirmDialogOpen = ref(false);
+
+const isWinner = (playerIndex: number) => {
+  return store.scoreSheet?.winners.includes(playerIndex);
+};
+
 const onSubmitHandler = () => {
   if (store.isGameFinished) return;
 
@@ -8,22 +14,20 @@ const onSubmitHandler = () => {
 };
 
 const onNewGameHandler = () => {
-  store.moveToHistory();
   store.initScoreSheet();
 };
 
-const isWinner = (playerIndex: number) => {
-  return store.scoreSheet?.winners.includes(playerIndex);
-};
-
-const confirmDialogOpen = ref(false);
-
-const onCalculateHandler = () => {
+const onFinishGameHandler = () => {
   confirmDialogOpen.value = false;
 
   store.calculateBonusScores();
   store.calculateTotalScores();
   store.calculateWinner();
+  store.addToHistory();
+};
+
+const onFocusHandler = (event: Event) => {
+  (event.target as HTMLInputElement).select();
 };
 </script>
 
@@ -46,13 +50,14 @@ const onCalculateHandler = () => {
             <th>{{ $t(`${section}.${animal}`, 2) }}</th>
             <td v-for="(score, index) in scores" :key="index">
               <input
-                v-model.lazy.number="score.score"
+                v-model.number="score.score"
                 :disabled="store.isGameFinished"
                 type="number"
                 max="99"
                 step="1"
                 min="0"
                 required
+                @focus="onFocusHandler"
               />
               <template v-if="typeof score.bonus === 'number'">{{ score.bonus }}</template>
             </td>
@@ -68,13 +73,14 @@ const onCalculateHandler = () => {
           <th>{{ $t('tokens.nature', 2) }}</th>
           <td v-for="(score, index) in store.scoreSheet.natureTokens" :key="index">
             <input
-              v-model.lazy.number="score.score"
+              v-model.number="score.score"
               :disabled="store.isGameFinished"
               type="number"
-              max="99"
+              max="25"
               step="1"
               min="0"
               required
+              @focus="onFocusHandler"
             />
           </td>
         </tr>
@@ -93,14 +99,14 @@ const onCalculateHandler = () => {
         </tr>
       </tfoot>
     </table>
-    <BaseButton v-if="!store.isGameFinished" type="submit" label="Calculate scores" />
+    <BaseButton v-if="!store.isGameFinished" type="submit" label="Calculate totals" />
     <BaseButton v-if="store.isGameFinished" type="button" label="Start new game" @click="onNewGameHandler" />
 
     <BaseDialog :open="confirmDialogOpen" @close="confirmDialogOpen = false">
       <h3>Are you sure?</h3>
       <p>This will finish the game and calculates the winner. Make sure all scores are filled in correctly.</p>
       <BaseButtonGroup>
-        <BaseButton label="Continue" @click="onCalculateHandler" />
+        <BaseButton label="Continue" @click="onFinishGameHandler" />
         <BaseButton label="Cancel" secondary @click="confirmDialogOpen = false" />
       </BaseButtonGroup>
     </BaseDialog>
