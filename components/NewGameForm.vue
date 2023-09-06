@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const store = useGameStore();
 const numberOfPlayers = ref(2);
+const playerInitials = ref(['', '', '', '']);
 
 const confirmDialogOpen = ref(false);
 
@@ -11,7 +12,14 @@ const onSubmitHandler = () => {
 const onNewSessionHandler = () => {
   confirmDialogOpen.value = false;
   store.$reset();
-  store.setPlayers(Array(numberOfPlayers.value).fill({ name: 'Arno' }));
+
+  const players = [];
+
+  for (let index = 0; index < numberOfPlayers.value; index++) {
+    players.push({ name: playerInitials.value[index] });
+  }
+
+  store.setPlayers(players);
   store.initScoreSheet();
 };
 </script>
@@ -21,11 +29,21 @@ const onNewSessionHandler = () => {
     <h2>New game</h2>
     <label for="players">Number of players</label>
     <select v-model.number="numberOfPlayers">
-      <option :value="1">1</option>
-      <option :value="2">2</option>
-      <option :value="3">3</option>
-      <option :value="4">4</option>
+      <option v-for="index in 4" :key="index" :value="index" :selected="index === numberOfPlayers">{{ index }}</option>
     </select>
+
+    <div v-for="index in numberOfPlayers" :key="index">
+      <h3>Player {{ index }}</h3>
+      <label :for="`playerInitials${index}`">Initials</label>
+      <input
+        :id="`playerInitials${index}`"
+        v-model.trim="playerInitials[index - 1]"
+        pattern="[a-zA-Z]+"
+        type="text"
+        maxlength="4"
+        required
+      />
+    </div>
 
     <BaseButton type="submit" label="Start new game" />
 
