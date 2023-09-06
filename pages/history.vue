@@ -9,7 +9,10 @@ useSeoMeta({
 <template>
   <div>
     <h1>History</h1>
-    <GamesList v-if="store.history.length" :score-sheets="store.history" :players="store.players" />
+    <template v-if="store.history.length">
+      <WinsSummary />
+      <GamesList :score-sheets="store.history" :players="store.players" />
+    </template>
     <p>Todo history:</p>
     <ul>
       <li>Summary of wins per player</li>

@@ -122,12 +122,13 @@ const onFocusHandler = (event: Event) => {
 
 .score-sheet td,
 .score-sheet th {
-  border: 2px solid var(--color-secondary);
+  border: 1px solid var(--color-secondary);
   font-size: clamp(0.75rem, 0.1875rem + 2.5vw, 1.125rem);
   text-align: center;
 }
 
 .score-sheet__winner {
   background-color: var(--color-secondary);
+  color: var(--color-white);
 }
 </style>
