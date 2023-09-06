@@ -8,6 +8,7 @@ const store = useGameStore();
       <tr>
         <th>Player</th>
         <th>Wins</th>
+        <th>Total score</th>
       </tr>
     </thead>
     <tbody>
@@ -15,6 +16,9 @@ const store = useGameStore();
         <th>{{ player.name }}</th>
         <td>
           {{ store.gamesWon(index) }}
+        </td>
+        <td>
+          {{ store.totalScore(index) }}
         </td>
       </tr>
     </tbody>

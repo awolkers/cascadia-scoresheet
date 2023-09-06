@@ -72,6 +72,10 @@ export const useGameStore = defineStore('game', {
         state.history.reduce((acc, scoreSheet) => (scoreSheet.winners.includes(playerId) ? acc + 1 : acc), 0);
     },
 
+    totalScore: (state) => {
+      return (playerId) => state.history.reduce((acc, scoreSheet) => scoreSheet.totals.total[playerId] + acc, 0);
+    },
+
     isGameFinished: (state) => {
       return state.scoreSheet !== null && state.scoreSheet.winners.length > 0;
     },
