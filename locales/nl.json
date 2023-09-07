@@ -21,6 +21,11 @@
     "token": "Fiche | Fiches",
     "nature": "Natuur@.lower:tokens.token"
   },
+  "scores": {
+    "total": "Totaal",
+    "subtotal": "Subtotaal",
+    "scoreInputLabel": "{0} score voor speler {1}"
+  },
   "languageSelector": {
     "title": "Taalkeuze"
   }

@@ -21,6 +21,11 @@
     "token": "Token | Tokens",
     "nature": "Nature @.lower:tokens.token"
   },
+  "scores": {
+    "total": "Total",
+    "subtotal": "Subtotal",
+    "scoreInputLabel": "{0} score for player {1}"
+  },
   "languageSelector": {
     "title": "Language"
   }
