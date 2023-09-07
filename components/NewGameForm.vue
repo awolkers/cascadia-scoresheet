@@ -56,7 +56,7 @@ const onKeyDownHandler = (event: KeyboardEvent) => {
 
     <BaseButton type="submit" label="Start new game" />
 
-    <BaseDialog :open="isDialogOpen">
+    <BaseDialog :open="isDialogOpen" @close="toggleDialog(false)">
       <h3>Are you sure you want to start a new game session?</h3>
       <p>All existing game data including the history will be lost.</p>
       <BaseButtonGroup>

@@ -30,7 +30,7 @@ const resetGame = () => {
     <TheNavigation />
 
     <BaseButton label="Reset" @click="onResetHandler" />
-    <BaseDialog :open="isDialogOpen">
+    <BaseDialog :open="isDialogOpen" @close="toggleDialog(false)">
       <h3>What do you want to reset?</h3>
       <p>
         You can reset the current score sheet or quit the current session. When you quit, all game data including the
@@ -38,7 +38,8 @@ const resetGame = () => {
       </p>
       <BaseButtonGroup>
         <BaseButton label="Reset score sheet" @click="resetScoreSheet" />
-        <BaseButton label="Quit session" secondary @click="resetGame" />
+        <BaseButton label="Quit session" @click="resetGame" />
+        <BaseButton label="Cancel" secondary @click="toggleDialog()" />
       </BaseButtonGroup>
     </BaseDialog>
   </header>

@@ -1,20 +1,17 @@
 <script setup lang="ts">
-import { onMounted, ref, watchEffect, useAttrs } from 'vue';
+import { onMounted, ref, watchEffect } from 'vue';
 
 const dialog = ref<InstanceType<any> | undefined>(null);
 const internalOpen = ref(false);
 const isClosing = ref(false);
-const attrs = useAttrs();
-
-const emit = defineEmits(['close']);
 
 const props = defineProps({
   open: Boolean,
   inline: Boolean,
 });
 
-const openCloseDialog = () => {
-  if (!dialog?.value) return;
+const toggleDialog = () => {
+  if (!dialog.value) return;
 
   if (props.open) {
     props.inline ? dialog.value.show() : dialog.value.showModal();
@@ -31,17 +28,19 @@ const startClosing = () => {
 };
 
 const close = () => {
-  if (!dialog.value.open) return;
-
   isClosing.value = false;
   dialog.value.close();
-  emit('close');
+};
+
+const onCancelHandler = (event: Event) => {
+  event.preventDefault();
+  startClosing();
 };
 
 onMounted(() => {
   watchEffect(() => {
     if (props.open !== internalOpen.value) {
-      openCloseDialog();
+      toggleDialog();
       internalOpen.value = props.open;
     }
   });
@@ -51,9 +50,8 @@ onMounted(() => {
 <template>
   <dialog
     ref="dialog"
-    v-bind="attrs"
     :class="[$style['dialog'], isClosing ? $style['dialog--closing'] : null]"
-    @close="close"
+    @cancel="onCancelHandler"
   >
     <div :class="$style['dialog__content']">
       <slot />
@@ -63,8 +61,6 @@ onMounted(() => {
 
 <style module>
 .dialog {
-  --dialog-animation-duration: var(--transition-slower);
-
   border: 0;
   max-width: min(calc(100vw - var(--space-32)), 64ch);
   padding: var(--space-8);

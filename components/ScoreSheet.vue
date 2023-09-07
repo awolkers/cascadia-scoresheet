@@ -100,7 +100,7 @@ const onFocusHandler = (event: Event) => {
     <BaseButton v-if="!store.isGameFinished" type="submit" label="Calculate totals" />
     <BaseButton v-if="store.isGameFinished" type="button" label="Start new game" @click="onNewGameHandler" />
 
-    <BaseDialog :open="isDialogOpen">
+    <BaseDialog :open="isDialogOpen" @close="toggleDialog(false)">
       <h3>Are you sure?</h3>
       <p>This will finish the game and calculates the winner. Make sure all scores are filled in correctly.</p>
       <BaseButtonGroup>
