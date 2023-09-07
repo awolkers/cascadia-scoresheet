@@ -26,6 +26,7 @@ defineProps<Props>();
   width: 1em;
   height: 1em;
   border-radius: 50%;
+  flex-shrink: 0;
 }
 
 .wildlife-tile--bear {
