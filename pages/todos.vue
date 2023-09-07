@@ -15,8 +15,8 @@ useSeoMeta({
     <ul>
       <li>style score sheet</li>
       <li>style new game form</li>
-      <li>Add best of x games</li>
-      <li>a11y label for input fields</li>
+      <li>Add best of x games to new game</li>
+      <li>Add first gets x points to new game</li>
     </ul>
   </main>
 </template>
