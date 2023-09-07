@@ -48,5 +48,6 @@ const resetGame = () => {
 <style module>
 .page-header {
   background: var(--color-secondary);
+  padding: var(--space-8);
 }
 </style>

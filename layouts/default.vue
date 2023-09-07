@@ -1,9 +1,7 @@
 <template>
   <div :class="$style['layout']">
     <PageHeader />
-    <main :class="$style['layout__main']">
-      <slot />
-    </main>
+    <slot />
     <PageFooter />
   </div>
 </template>
@@ -15,7 +13,10 @@
   flex-direction: column;
 }
 
-.layout__main {
+.layout > main {
   flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-16) var(--space-8);
 }
 </style>

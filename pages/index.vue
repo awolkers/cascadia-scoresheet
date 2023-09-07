@@ -3,8 +3,8 @@ const store = useGameStore();
 </script>
 
 <template>
-  <div>
+  <main>
     <NewGameForm v-if="!store.scoreSheet" />
     <ScoreSheet v-if="store.scoreSheet" />
-  </div>
+  </main>
 </template>
