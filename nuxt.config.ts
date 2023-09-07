@@ -30,7 +30,7 @@ export default defineNuxtConfig({
 
   css: ['~/assets/css/main.css'],
 
-  modules: ['@nuxtjs/i18n', '@nuxtjs/eslint-module', '@pinia/nuxt', '@nuxtjs/google-fonts'],
+  modules: ['@nuxtjs/i18n', '@nuxtjs/eslint-module', '@pinia/nuxt', '@nuxtjs/google-fonts', '@vueuse/nuxt'],
 
   imports: {
     dirs: ['./stores'],
