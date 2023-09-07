@@ -43,30 +43,56 @@ const onFocusHandler = (event: Event) => {
       </thead>
 
       <tbody>
-        <template v-for="section in ['wildlife', 'habitats']" :key="section">
-          <tr v-for="(scores, animal) in store.scoreSheet[section]" :key="animal">
-            <th>{{ $t(`${section}.${animal}`, 2) }}</th>
-            <td v-for="(score, index) in scores" :key="index">
-              <input
-                v-model.number="score.score"
-                :disabled="store.isGameFinished"
-                type="number"
-                max="99"
-                step="1"
-                min="0"
-                required
-                @focus="onFocusHandler"
-              />
-              <template v-if="typeof score.bonus === 'number'">{{ score.bonus }}</template>
-            </td>
-          </tr>
-          <tr>
-            <th>subtotaal {{ section }}</th>
-            <td v-for="(score, index) in store.scoreSheet.totals[section]" :key="index">
-              {{ score }}
-            </td>
-          </tr>
-        </template>
+        <tr v-for="(scores, animal) in store.scoreSheet.wildlife" :key="animal">
+          <th>
+            <WildLifeTile :animal="animal" />
+          </th>
+          <td v-for="(score, index) in scores" :key="index">
+            <input
+              v-model.number="score.score"
+              :disabled="store.isGameFinished"
+              type="number"
+              max="99"
+              step="1"
+              min="0"
+              required
+              @focus="onFocusHandler"
+            />
+            <template v-if="typeof score.bonus === 'number'">{{ score.bonus }}</template>
+          </td>
+        </tr>
+        <tr :class="$style['score-sheet__subtotal']">
+          <th>subtotaal wildlife</th>
+          <td v-for="(score, index) in store.scoreSheet.totals.wildlife" :key="index">
+            {{ score }}
+          </td>
+        </tr>
+
+        <tr v-for="(scores, habitat) in store.scoreSheet.habitats" :key="habitat">
+          <th>
+            {{ $t(`habitats.${habitat}`, 2) }}
+          </th>
+          <td v-for="(score, index) in scores" :key="index">
+            <input
+              v-model.number="score.score"
+              :disabled="store.isGameFinished"
+              type="number"
+              max="99"
+              step="1"
+              min="0"
+              required
+              @focus="onFocusHandler"
+            />
+            <template v-if="typeof score.bonus === 'number'">{{ score.bonus }}</template>
+          </td>
+        </tr>
+        <tr :class="$style['score-sheet__subtotal']">
+          <th>subtotaal habitats</th>
+          <td v-for="(score, index) in store.scoreSheet.totals.habitats" :key="index">
+            {{ score }}
+          </td>
+        </tr>
+
         <tr>
           <th>{{ $t('tokens.nature', 2) }}</th>
           <td v-for="(score, index) in store.scoreSheet.natureTokens" :key="index">
@@ -85,7 +111,7 @@ const onFocusHandler = (event: Event) => {
       </tbody>
 
       <tfoot>
-        <tr>
+        <tr :class="$style['score-sheet__total']">
           <th>Total</th>
           <td
             v-for="(score, index) in store.scoreSheet.totals.total"
@@ -120,8 +146,14 @@ const onFocusHandler = (event: Event) => {
 .score-sheet td,
 .score-sheet th {
   border: 1px solid var(--color-secondary);
-  font-size: clamp(0.75rem, 0.1875rem + 2.5vw, 1.125rem);
-  text-align: center;
+  font-size: clamp(0.75rem, 0.1875rem + 2.5vw, 1rem);
+  /* text-align: center; */
+  text-align: left;
+}
+
+.score-sheet__subtotal td,
+.score-sheet__subtotal th {
+  background: rgba(0, 0, 0, 0.1);
 }
 
 .score-sheet__winner {
