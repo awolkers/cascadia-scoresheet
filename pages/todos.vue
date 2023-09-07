@@ -18,5 +18,10 @@ useSeoMeta({
       <li>Add best of x games to new game</li>
       <li>Add first gets x points to new game</li>
     </ul>
+    <h4>Global</h4>
+    <ul>
+      <li>Add link to github</li>
+      <li>Add icons</li>
+    </ul>
   </main>
 </template>
