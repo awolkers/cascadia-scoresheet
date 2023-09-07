@@ -31,6 +31,8 @@ const startClosing = () => {
 };
 
 const close = () => {
+  if (!dialog.value.open) return;
+
   isClosing.value = false;
   dialog.value.close();
   emit('close');
