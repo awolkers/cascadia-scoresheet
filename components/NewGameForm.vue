@@ -3,18 +3,18 @@ const store = useGameStore();
 const numberOfPlayers = ref(2);
 const playerInitials = ref(['', '', '', '']);
 
-const confirmDialogOpen = ref(false);
+const [isDialogOpen, toggleDialog] = useToggle(false);
 
 const onSubmitHandler = () => {
   if (store.players.length) {
-    confirmDialogOpen.value = true;
+    toggleDialog();
   } else {
     initNewGameSession();
   }
 };
 
 const initNewGameSession = () => {
-  confirmDialogOpen.value = false;
+  toggleDialog();
   store.$reset();
 
   const players = [];
@@ -56,12 +56,12 @@ const onKeyDownHandler = (event: KeyboardEvent) => {
 
     <BaseButton type="submit" label="Start new game" />
 
-    <BaseDialog :open="confirmDialogOpen" @close="confirmDialogOpen = false">
+    <BaseDialog :open="isDialogOpen">
       <h3>Are you sure you want to start a new game session?</h3>
       <p>All existing game data including the history will be lost.</p>
       <BaseButtonGroup>
         <BaseButton label="Yes" @click="initNewGameSession" />
-        <BaseButton label="Cancel" secondary @click="confirmDialogOpen = false" />
+        <BaseButton label="Cancel" secondary @click="toggleDialog()" />
       </BaseButtonGroup>
     </BaseDialog>
   </form>

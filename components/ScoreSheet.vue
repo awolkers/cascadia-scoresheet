@@ -1,16 +1,14 @@
 <script setup lang="ts">
 const store = useGameStore();
 
-const confirmDialogOpen = ref(false);
+const [isDialogOpen, toggleDialog] = useToggle(false);
 
 const isWinner = (playerIndex: number) => {
   return store.scoreSheet?.winners.includes(playerIndex);
 };
 
 const onSubmitHandler = () => {
-  if (store.isGameFinished) return;
-
-  confirmDialogOpen.value = true;
+  toggleDialog();
 };
 
 const onNewGameHandler = () => {
@@ -18,7 +16,7 @@ const onNewGameHandler = () => {
 };
 
 const onFinishGameHandler = () => {
-  confirmDialogOpen.value = false;
+  toggleDialog();
 
   store.calculateBonusScores();
   store.calculateTotalScores();
@@ -102,12 +100,12 @@ const onFocusHandler = (event: Event) => {
     <BaseButton v-if="!store.isGameFinished" type="submit" label="Calculate totals" />
     <BaseButton v-if="store.isGameFinished" type="button" label="Start new game" @click="onNewGameHandler" />
 
-    <BaseDialog :open="confirmDialogOpen" @close="confirmDialogOpen = false">
+    <BaseDialog :open="isDialogOpen">
       <h3>Are you sure?</h3>
       <p>This will finish the game and calculates the winner. Make sure all scores are filled in correctly.</p>
       <BaseButtonGroup>
         <BaseButton label="Continue" @click="onFinishGameHandler" />
-        <BaseButton label="Cancel" secondary @click="confirmDialogOpen = false" />
+        <BaseButton label="Cancel" secondary @click="toggleDialog()" />
       </BaseButtonGroup>
     </BaseDialog>
   </form>
