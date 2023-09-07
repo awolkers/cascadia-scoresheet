@@ -16,5 +16,10 @@ h6 {
   text-wrap: balance;
   font-weight: 700;
   text-transform: uppercase;
+  margin-bottom: 0.5em;
+}
 
+h1 {
+  font-size: var(--font-size-24);
+  color: var(--color-white)
 }

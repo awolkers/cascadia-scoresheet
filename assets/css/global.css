@@ -41,3 +41,8 @@ body {
   white-space: nowrap;
   width: 1px;
 }
+
+ul,
+ol {
+  margin-block: 0 1em;
+}
