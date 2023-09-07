@@ -33,7 +33,7 @@ const onFocusHandler = (event: Event) => {
   <form v-if="store.scoreSheet" @submit.prevent="onSubmitHandler">
     <table :class="$style['score-sheet']">
       <thead>
-        <tr>
+        <tr :class="$style['score-sheet__players']">
           <td></td>
           <th v-for="(player, index) in store.players" :key="index">
             {{ player.name }}
@@ -93,7 +93,7 @@ const onFocusHandler = (event: Event) => {
           </td>
         </tr>
 
-        <tr>
+        <tr :class="$style['score-sheet__tokens']">
           <th>{{ $t('tokens.nature', 2) }}</th>
           <td v-for="(score, index) in store.scoreSheet.natureTokens" :key="index">
             <input
@@ -141,19 +141,47 @@ const onFocusHandler = (event: Event) => {
 .score-sheet {
   border-collapse: collapse;
   width: 100%;
+  max-width: 64ch;
+  margin-bottom: var(--space-16);
 }
 
 .score-sheet td,
 .score-sheet th {
   border: 1px solid var(--color-secondary);
   font-size: clamp(0.75rem, 0.1875rem + 2.5vw, 1rem);
-  /* text-align: center; */
+  text-align: center;
+  padding: var(--space-base-unit);
+}
+
+.score-sheet th:first-child {
   text-align: left;
+  border-right-width: 2px;
+}
+
+.score-sheet__players td {
+  border-right-width: 2px;
+}
+.score-sheet__players td,
+.score-sheet__players th {
+  text-align: center;
+  border-bottom-width: 2px;
 }
 
 .score-sheet__subtotal td,
 .score-sheet__subtotal th {
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0.05);
+  border-bottom-width: 5px;
+}
+
+.score-sheet__total,
+.score-sheet__total {
+  background: rgba(68, 104, 44, 0.2);
+}
+
+.score-sheet__tokens td,
+.score-sheet__tokens th {
+  background: rgba(0, 0, 0, 0.05);
+  border-bottom-width: 5px;
 }
 
 .score-sheet__winner {
