@@ -26,6 +26,10 @@ const initNewGameSession = () => {
   store.setPlayers(players);
   store.initScoreSheet();
 };
+
+const onKeyDownHandler = (event: KeyboardEvent) => {
+  if (!/[a-zA-Z]/i.test(event.key)) event.preventDefault();
+};
 </script>
 
 <template>
@@ -44,8 +48,9 @@ const initNewGameSession = () => {
         v-model.trim="playerInitials[index - 1]"
         pattern="[a-zA-Z]+"
         type="text"
-        maxlength="4"
+        maxlength="5"
         required
+        @keydown="onKeyDownHandler"
       />
     </div>
 
