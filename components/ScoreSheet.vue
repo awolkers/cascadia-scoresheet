@@ -117,7 +117,6 @@ const onFocusHandler = (event: Event) => {
 .score-sheet {
   border-collapse: collapse;
   width: 100%;
-  table-layout: fixed;
 }
 
 .score-sheet td,
